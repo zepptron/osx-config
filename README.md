@@ -15,7 +15,8 @@
 >   ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
 > done
 ```
-# copy .zshrc to homedir
+# copy .zshrc from git to homedir
+check the proxysettings!
 ```sh
 > cp .zshrc ~/.
 ```
