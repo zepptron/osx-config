@@ -39,3 +39,20 @@ brew install tmux
 ```sh
 cp .tmux.conf ~/.
 ```
+
+
+# Docker & Minikube
+Follow this link to install the latest version of docker for mac
+```sh
+https://docs.docker.com/docker-for-mac/install/
+```
+Follow this link to install the latest version of minikube
+```sh
+https://github.com/kubernetes/minikube/releases
+```
+
+```sh
+> minikube start --docker-env http_proxy=$http_proxy --docker-env https_proxy=$https_proxy --docker-env no_proxy=$no_proxy
+> export minikube_ip=$(minikube ip)
+> export no_proxy=$no_proxy,$minikube_ip
+```
