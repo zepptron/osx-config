@@ -15,9 +15,15 @@
 >   ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
 > done
 ```
+# copy .zshrc to homedir
+```sh
+> cp .zshrc ~/.
+```
 
 # Install tmux
-```brew install tmux```
+```sh
+> brew install tmux
+```
 
 # copy .tmux.conf to homedir
 ```sh
