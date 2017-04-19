@@ -43,7 +43,22 @@ chsh -s /bin/zsh
 ```sh
 cp .tmux.conf ~/.
 ```
+3. useful shortcuts 
 
+| shortcut | action |
+| ------ | ------ |
+| ctrl+a | prefix -> C |
+| C+y | split horizontal (y-axis) |
+| C+x | split vertical (x axis) |
+| C+d | close pane |
+| C+o | switch pane |
+| C+z | zoom in/out active pane |
+| C+c | new windows |
+| C+n | next window |
+| C+{1..n} | window select by id |
+| C+? show shortcuts |
+
+more shortcuts can be found [HERE]
 
 # Docker & Minikube
 1. Follow this link to install the latest version of docker for mac
@@ -64,4 +79,5 @@ cp .tmux.conf ~/.
 
 
 [Prezto]: https://github.com/sorin-ionescu/prezto
+[HERE]: https://gist.github.com/MohamedAlaa/2961058
 [reattach-to-user-namespace]: https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
