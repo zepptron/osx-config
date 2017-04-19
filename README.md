@@ -48,11 +48,11 @@ cp .tmux.conf ~/.
 # Docker & Minikube
 1. Follow this link to install the latest version of docker for mac
 
-https://docs.docker.com/docker-for-mac/install/
+    https://docs.docker.com/docker-for-mac/install/
 
 2. Follow this link to install the latest version of minikube
 
-https://github.com/kubernetes/minikube/releases
+    https://github.com/kubernetes/minikube/releases
 
 
 3. set minikube environmentvariables for better integration
