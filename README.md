@@ -45,18 +45,18 @@ cp .tmux.conf ~/.
 ```
 3. useful shortcuts 
 
-| shortcut | action |
-| ------ | ------ |
-| ctrl+a | prefix -> C |
-| C+y | split horizontal (y-axis) |
-| C+x | split vertical (x axis) |
-| C+d | close pane |
-| C+o | switch pane |
-| C+z | zoom in/out active pane |
-| C+c | new windows |
-| C+n | next window |
-| C+{1..n} | window select by id |
-| C+? show shortcuts |
+    | shortcut | action |
+    | ------ | ------ |
+    | ctrl+a | prefix -> C |
+    | C+y | split horizontal (y-axis) |
+    | C+x | split vertical (x axis) |
+    | C+d | close pane |
+    | C+o | switch pane |
+    | C+z | zoom in/out active pane |
+    | C+c | new windows |
+    | C+n | next window |
+    | C+{1..n} | window select by id |
+    | C+? show shortcuts |
 
 more shortcuts can be found [HERE]
 
