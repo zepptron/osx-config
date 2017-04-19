@@ -5,7 +5,7 @@ This guide assumes your working directory is your cloned git repo.
 ```sh
 brew install zsh zsh-completions
 ```
-2. Install Prezto on top of zsh
+2. Install [Prezto] on top of zsh
 ```sh
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 ```
@@ -33,9 +33,10 @@ chsh -s /bin/zsh
 
 # TMUX
 
-1. Install tmux
+1. Install tmux & [reattach-to-user-namespace]
 ```sh
-brew install tmux
+> brew install tmux
+> brew install reattach-to-user-namespace
 ```
 
 2. copy .tmux.conf to homedir
@@ -46,13 +47,13 @@ cp .tmux.conf ~/.
 
 # Docker & Minikube
 1. Follow this link to install the latest version of docker for mac
-```sh
+
 https://docs.docker.com/docker-for-mac/install/
-```
+
 2. Follow this link to install the latest version of minikube
-```sh
+
 https://github.com/kubernetes/minikube/releases
-```
+
 
 3. set minikube environmentvariables for better integration
 ```sh
@@ -60,3 +61,7 @@ https://github.com/kubernetes/minikube/releases
 > export minikube_ip=$(minikube ip)
 > export no_proxy=$no_proxy,$minikube_ip
 ```
+
+
+[Prezto]: https://github.com/sorin-ionescu/prezto
+[reattach-to-user-namespace]: https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
