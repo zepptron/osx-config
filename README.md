@@ -90,7 +90,7 @@ This guide assumes your working directory is your cloned git repo.
     ```sh
     brew install etcd
     ````
-    check the environmentvariables in ~/.zshrc and adjust the parameters to connect to prod cluster. 
+    check the environmentvariables in `~/.zshrc` and adjust the parameters to connect to prod cluster. 
 
 
 [Prezto]: https://github.com/sorin-ionescu/prezto
