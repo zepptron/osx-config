@@ -85,6 +85,13 @@ This guide assumes your working directory is your cloned git repo.
     > export no_proxy=$no_proxy,$minikube_ip
     ```
 
+# etcdctl
+1. install etcd 
+    ```sh
+    brew install etcd
+    ````
+    check the environmentvariables in ~/.zshrc and adjust the parameters to connect to prod cluster. 
+
 
 [Prezto]: https://github.com/sorin-ionescu/prezto
 [HERE]: https://gist.github.com/MohamedAlaa/2961058
