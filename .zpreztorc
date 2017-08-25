@@ -28,12 +28,13 @@ zstyle ':prezto:load' pmodule \
   'terminal' \
   'editor' \
   'history' \
-  'directory' \
   'spectrum' \
   'utility' \
   'completion' \
   'git' \
-  'prompt'
+  'prompt' \
+  'tmux'
+
 
 #zstyle ':prezto:module:prompt' theme 'paradox'
 
@@ -44,7 +45,7 @@ zstyle ':prezto:module:prompt' theme 'wikimatze'
 #
 
 # Set the query found color.
-# zstyle ':prezto:module:autosuggestions:color' found ''
+zstyle ':prezto:module:autosuggestions:color' found ''
 
 #
 # Editor
@@ -54,7 +55,7 @@ zstyle ':prezto:module:prompt' theme 'wikimatze'
 zstyle ':prezto:module:editor' key-bindings 'emacs'
 
 # Auto convert .... to ../..
-# zstyle ':prezto:module:editor' dot-expansion 'yes'
+zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 #
 # Git
@@ -161,7 +162,7 @@ zstyle ':prezto:module:editor' key-bindings 'emacs'
 #
 
 # Auto start a session when Zsh is launched in a local terminal.
-# zstyle ':prezto:module:tmux:auto-start' local 'yes'
+zstyle ':prezto:module:tmux:auto-start' local 'yes'
 
 # Auto start a session when Zsh is launched in a SSH connection.
 # zstyle ':prezto:module:tmux:auto-start' remote 'yes'
