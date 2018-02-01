@@ -37,6 +37,12 @@ This guide assumes your working directory is your cloned git repo.
     chsh -s /bin/zsh
     ```
 
+7. copy contents to enable wikimatze
+
+   ```sh
+   ~/.zprezto/modules/prompt/functions/prompt_wikimatze_setup
+   ```
+
 # TMUX
 
 1. Install tmux & [reattach-to-user-namespace]
