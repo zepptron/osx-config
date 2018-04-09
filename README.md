@@ -74,6 +74,18 @@ This guide assumes your working directory is your cloned git repo.
 
     more shortcuts can be found [HERE]
 
+4. install fzf
+
+```
+brew install fzf
+# To install useful key bindings and fuzzy completion:
+$(brew --prefix)/opt/fzf/install
+```
+
+usage: 
+`ctrl+t` for files
+`ctrl+r` for history
+
 # Docker & Minikube
 1. Follow this link to install the latest version of docker for mac
 
