@@ -13,43 +13,22 @@ function prompt_wikimatze_setup {
   # Add hook for calling git-info before each command.
   add-zsh-hook precmd prompt_wikimatze_precmd
 
-  # Use extended color pallete if available.
-  if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
-    _prompt_mseri_colors=(
-      "%F{81}"  # Turquoise
-      "%F{75}"  # Pastel Cyan
-      "%F{215}" # Light Orange
-      "%F{166}" # Orange - not used
-      "%F{119}" # Pastel Limegreen
-      "%F{white}"
-    )
-  else
-    _prompt_mseri_colors=(
-      "%F{cyan}"
-      "%F{magenta}"
-      "%F{yellow}"
-      "%F{red}"
-      "%F{green}"
-    )
-  fi
-
   # Set git-info parameters.
   zstyle ':prezto:module:git:info' verbose 'yes'
   zstyle ':prezto:module:git:info:ahead' format ' %%B%F{yellow}⬆%f%%b'
   zstyle ':prezto:module:git:info:behind' format ' %%B%F{yellow}⬇%f%%b'
-  zstyle ':prezto:module:git:info:branch' format '%F{195}%b%f'
-  zstyle ':prezto:module:git:info:stashed' format ' %%B%F{195}✭%f%%b'
-
+  zstyle ':prezto:module:git:info:branch' format '%F{8}%b%f'
+  zstyle ':prezto:module:git:info:stashed' format ' %%B%F{8}✭%f%%b'
   zstyle ':prezto:module:git:info:clean' format ' %F{green}✔%f'
   zstyle ':prezto:module:git:info:dirty' format ' %F{red}✗%f'
   zstyle ':prezto:module:git:info:untracked' format ' %%B%F{white}◼%f%%b'
 
   zstyle ':prezto:module:git:info:keys' format \
-      'prompt' ' %F{195}(%f$(coalesce "%b" "%p" "%c")${git_info[rprompt]}%s%F{195})%f' \
+      'prompt' ' ➠ %f$(coalesce "%b" "%p" "%c")${git_info[rprompt]}%s%f' \
       'rprompt' '%A%B%S%C%D%U%u'
 
   # Define prompts.
-  PROMPT="%F{7}%n@%m%f %F{24}%~%f"'${(e)git_info[prompt]}'$'\n'"%F{24}»%f""%F{81}»%f""%F{159}» %f"
+  PROMPT="[%F{237}%n@%m%f: %F{226}%~%f"'${(e)git_info[prompt]}]'$'\n'"%F{226}»%f""%F{142}»%f""%F{100}» %f"
   RPROMPT=''
 
 }
