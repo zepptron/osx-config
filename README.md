@@ -12,6 +12,7 @@ This guide assumes your working directory is your cloned git repo.
     git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
     ```
 3. create ~/.zshrc
+    ```zsh```
 
     ```sh
     setopt EXTENDED_GLOB
@@ -33,14 +34,14 @@ This guide assumes your working directory is your cloned git repo.
     ```
 6. set as default
 
-    ```sh
+    ```
     chsh -s /bin/zsh
     ```
 
 7. copy contents to enable wikimatze
 
-   ```sh
-   ~/.zprezto/modules/prompt/functions/prompt_wikimatze_setup
+   ```
+   cat prompt_wikimatze_setup > ~/.zprezto/modules/prompt/functions/prompt_wikimatze_setup
    ```
 
 # TMUX
