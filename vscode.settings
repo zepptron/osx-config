@@ -1,0 +1,24 @@
+{
+    "editor.renderWhitespace": "boundary",
+    "editor.trimAutoWhitespace": true,
+    "editor.matchBrackets": true,
+    "editor.tabSize": 4,
+    "files.autoGuessEncoding": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "workbench.settings.editor": "json",
+    "workbench.statusBar.feedback.visible": false,
+    "editor.minimap.enabled": false,
+    "workbench.colorTheme": "One Dark Pro Vivid",
+    "window.zoomLevel": 1,
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "workbench.editor.showTabs": true,
+    "terraform.indexing": {
+        "enabled": false,
+        "liveIndexing": false,
+        "exclude": ["**/*"]
+    }
+}
+
