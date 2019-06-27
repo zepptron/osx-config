@@ -1,98 +1,74 @@
-# Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Num  Colour   R G B
-# 0    black    0,0,0
-# 1    red      1,0,0
-# 2    green    0,1,0
-# 3    yellow   1,1,0
-# 4    blue     0,0,1
-# 5    magenta  1,0,1
-# 6    cyan     0,1,1
-# 7    white    1,1,1
+# envs
+export GOPATH="${HOME}/.go"
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
+export VISUAL=nano
+export EDITOR="$VISUAL"
 
-red=`tput setaf 1`
-green=`tput setaf 2`
-reset=`tput sgr0`
-
-
-# Alias
+# aliases
 alias ll="ls -lah"
+alias py="python"
 alias gs="git status"
-alias k="kubectl"
+alias gd="git diff"
+alias gc="git commit"
+alias qc="git add . && git commit -m foooo && git push"
+alias vd="vagrant destroy -f"
+alias vu="vagrant up"
+alias vs="vagrant ssh"
+alias vst="vagrant status"
+alias clearssh="rm -f ~/.ssh/known_hosts"
 
-## ENVs ##
-#export minikube_ip=$(minikube ip)
-#export no_proxy=".fhm.de",$minikube_ip
-export TILLER_NAMESPACE=tools && helm init -c > /dev/null
-source <(kubectl completion zsh)
-complete -C aws_completer aws
-export PATH="/Users/tor0001s/go/bin:$PATH"
-export ETCDCTL_API=3
+# autocompletion stuff
+fpath=(/usr/local/share/zsh-completions $fpath)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
-function k-prod() {
-  alias k="kubectl --namespace prod"
-  echo "\n${red}kubectl --namespace prod active\n${reset}"
-}
-function k-test() {
-  alias k="kubectl --namespace test"
-  echo "\n${green}kubectl --namespace test active\n${reset}"
-}
-function k-dev() {
-  alias k="kubectl --namespace dev"
-  echo "\n${green}kubectl --namespace dev active\n${reset}"
-}
-function k-playground() {
-  alias k="kubectl --namespace test"
-  echo "\n${green}kubectl --namespace playground active\n${reset}"
-}
-function k-tools() {
-  alias k="kubectl --namespace tools"
-  echo "\n${green}kubectl --namespace tools active\n${reset}"
-}
-function k-system() {
-  alias k="kubectl --namespace kube-system"
-  echo "\n${green}kubectl --namespace kube-system active\n${reset}"
-}
-function k-default() {
-  alias k="kubectl"
-  echo "\n${green}kubectl without namespace active\n${reset}"
+azure-resourcegroup () {
+  local get_groups=$(az group list | jq ".[].name" | sed 's/"//g' | fzf)
+  az configure --defaults group=${get_groups}
 }
 
-
-function etcd-prod() {
-  export ETCDCTL_KEY_FILE=/Users/tor0001s/repos/ucp_plattform/ansible/certs/prod/etcd-key.pem
-  export ETCDCTL_CACERT=/Users/tor0001s/repos/ucp_plattform/ansible/certs/prod/ca.pem
-  export ETCDCTL_CERT=/Users/tor0001s/repos/ucp_plattform/ansible/certs/prod/etcd.pem
-  export ETCDCTL_KEY=/Users/tor0001s/repos/ucp_plattform/ansible/certs/prod/etcd-key.pem
-  export ETCDCTL_CA_FILE=/Users/tor0001s/repos/ucp_plattform/ansible/certs/prod/ca.pem
-  export ETCDCTL_CERT_FILE=/Users/tor0001s/repos/ucp_plattform/ansible/certs/prod/etcd.pem
-  export ETCDCTL_ENDPOINTS=https://app-kubema-p1.ucp.fhm.de:2379,https://app-kubema-p2.ucp.fhm.de:2379,https://app-kubema-p3.ucp.fhm.de:2379
-  echo "\n${red}etcd-PROD on!\n${reset}"
+azure-subscription () {
+  local get_subs=$(az account list | jq ".[].name" | sed 's/"//g' | fzf)
+  az account set --subscription ${get_subs}
 }
 
-function etcd-dev() {
-  export ETCDCTL_KEY_FILE=/Users/tor0001s/repos/ucp_plattform/ansible/certs/dev/etcd-key.pem
-  export ETCDCTL_CACERT=/Users/tor0001s/repos/ucp_plattform/ansible/certs/dev/ca.pem
-  export ETCDCTL_CERT=/Users/tor0001s/repos/ucp_plattform/ansible/certs/dev/etcd.pem
-  export ETCDCTL_KEY=/Users/tor0001s/repos/ucp_plattform/ansible/certs/dev/etcd-key.pem
-  export ETCDCTL_CA_FILE=/Users/tor0001s/repos/ucp_plattform/ansible/certs/dev/ca.pem
-  export ETCDCTL_CERT_FILE=/Users/tor0001s/repos/ucp_plattform/ansible/certs/dev/etcd.pem
-  export ETCDCTL_ENDPOINTS=https://app-kubema-v1.ucpdev.fhm.de:2379,https://app-kubema-v2.ucpdev.fhm.de:2379,https://app-kubema-v3.ucpdev.fhm.de:2379
-  echo "\n${green}etcd-DEV on\n${reset}"
+azure-ips () {
+  local rgp=$(az group list | jq '.[].name' | grep sharedservices | sed 's/"//g' | fzf )
+  local check_vm=($(az vm list -g ${rgp} | jq '.[].name' | sed 's/"//g'))
+  local check_vmss=($(az vmss list -g ${rgp} | jq '.[].name' | sed 's/"//g'))
+
+  local array=()
+  if [[ $check_vm ]]; then array+=$check_vm fi
+  if [[ $check_vmss ]]; then array+=($check_vmss) fi
+  local count=$(echo "${#array[@]}")
+
+  if [[ $count > "1" ]]; then
+      local get=($(echo $array | tr ' ' '\n' | fzf))
+  elif [[ $count == "1" ]]; then
+      local get=($(echo $array | tr ' ' '\n'))
+  else
+      echo "no VMs or VMSS found."
+      return 0
+  fi
+
+  if [[ " ${check_vm[@]} " =~ " ${get} " ]]; then
+    az vm show -g ${rgp} --name ${get} -d | jq '.privateIps'
+  elif [[ " ${check_vmss[@]} " =~ " ${get} " ]]; then
+    az vmss nic list -g ${rgp} --vmss-name ${get} | jq '.[].ipConfigurations | .[].privateIpAddress'
+  fi
 }
 
-function pon() {
-    export {http,https,ftp}_proxy='proxy.fhm.de:8080'
-    export no_proxy='.fhm.de'
-    echo "\n${green}proxy on!\n${reset}"
-}
+azure-state () {
+  az vm list -d | jq '.[] | {name: .name, state: .powerState}'
 
-function poff() {
-    unset {http,https,ftp,no}_proxy
-    echo "\n${red}proxy off!\n${reset}"
+  local COUNT=0
+  for rgp in $(az vmss list | jq -r '.[].resourceGroup'); do \
+      az vmss get-instance-view -g $rgp --name $(az vmss list |  jq -r ".[$COUNT].name") --instance-id "*" | jq ".[] | {name: .computerName, state: .statuses[1].displayStatus}"; \
+      COUNT=$COUNT+1; \
+  done
 }
