@@ -44,74 +44,30 @@ This guide assumes your working directory is your cloned git repo.
    cat prompt_wikimatze_setup > ~/.zprezto/modules/prompt/functions/prompt_wikimatze_setup
    ```
 
-# TMUX
+8. brew stuff
 
-1. Install tmux & [reattach-to-user-namespace]
-
-    ```sh
-    > brew install tmux
-    > brew install reattach-to-user-namespace
+    ```
+    brew install ansible \
+    jq \
+    telnet \
+    awscli \
+    kube-aws \
+    openssl \
+    terraform \
+    azure-cli \
+    packer \
+    terragrunt \
+    tree \
+    fzf \    
+    watch \
+    wget \
+    git \
+    zsh \
+    nmap \
+    zsh-completions
+    ```
+ 
+    ```
+    brew cask install dozer pock vagrant vagrant-manager virtualbox vscodium
     ```
 
-2. copy .tmux.conf to homedir
-
-    ```sh
-    cp .tmux.conf ~/.
-    ```
-3. useful shortcuts 
-
-    | shortcut | action |
-    | ------ | ------ |
-    | ctrl+a | prefix -> C |
-    | C+y | split horizontal (y-axis) |
-    | C+x | split vertical (x axis) |
-    | C+d | close pane |
-    | C+o | switch pane |
-    | C+z | zoom in/out active pane |
-    | C+c | new windows |
-    | C+n | next window |
-    | C+{1..n} | window select by id |
-    | C+? show shortcuts |
-
-    more shortcuts can be found [HERE]
-
-4. install fzf
-
-```
-brew install fzf
-# To install useful key bindings and fuzzy completion:
-$(brew --prefix)/opt/fzf/install
-```
-
-usage: 
-`ctrl+t` for files
-`ctrl+r` for history
-
-# Docker & Minikube
-1. Follow this link to install the latest version of docker for mac
-
-    https://docs.docker.com/docker-for-mac/install/
-
-2. Follow this link to install the latest version of minikube
-
-    https://github.com/kubernetes/minikube/releases
-
-
-3. set minikube environmentvariables for better integration
-    ```sh
-    > minikube start --docker-env http_proxy=$http_proxy --docker-env https_proxy=$https_proxy --docker-env       no_proxy=$no_proxy
-    > export minikube_ip=$(minikube ip)
-    > export no_proxy=$no_proxy,$minikube_ip
-    ```
-
-# etcdctl
-1. install etcd 
-    ```sh
-    brew install etcd
-    ````
-    check the environmentvariables in `~/.zshrc` and adjust the parameters to connect to prod cluster. 
-
-
-[Prezto]: https://github.com/sorin-ionescu/prezto
-[HERE]: https://gist.github.com/MohamedAlaa/2961058
-[reattach-to-user-namespace]: https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
