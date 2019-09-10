@@ -12,7 +12,10 @@ This guide assumes your working directory is your cloned git repo.
     git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
     ```
 3. create ~/.zshrc
-    ```zsh```
+
+    ```
+    zsh
+    ```
 
     ```sh
     setopt EXTENDED_GLOB
@@ -30,7 +33,7 @@ This guide assumes your working directory is your cloned git repo.
 
     check the proxysettings!
     ```sh
-    cat .zpreztorc > ~/.preztorc
+    cat .zpreztorc > ~/.zpreztorc
     ```
 6. set as default
 
