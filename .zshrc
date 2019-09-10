@@ -11,6 +11,7 @@ export VISUAL=nano
 export EDITOR="$VISUAL"
 
 # aliases
+alias gob="CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main ."
 alias ll="ls -lah"
 alias py="python"
 alias gs="git status"
@@ -22,10 +23,18 @@ alias vu="vagrant up"
 alias vs="vagrant ssh"
 alias vst="vagrant status"
 alias clearssh="rm -f ~/.ssh/known_hosts"
+alias galaxy-get="ansible-galaxy install -r requirements.yml -p ./roles --force"
+alias vad="rm -rf roles/ && vagrant up && vagrant provision"
+alias venv="virtualenv venv --python=python3 && source venv/bin/activate"
 
 # autocompletion stuff
 fpath=(/usr/local/share/zsh-completions $fpath)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+git-sync () {
+  find . -print | grep ".git$" | sed 's,\/.git,,' | sed "s|^\./||" | xargs -P10 -I{} git -C {} checkout master
+  find . -print | grep ".git$" | sed 's,\/.git,,' | sed "s|^\./||" | xargs -P10 -I{} git -C {} pull
+}
 
 azure-resourcegroup () {
   local get_groups=$(az group list | jq ".[].name" | sed 's/"//g' | fzf)
@@ -48,12 +57,12 @@ azure-ips () {
   local count=$(echo "${#array[@]}")
 
   if [[ $count > "1" ]]; then
-      local get=($(echo $array | tr ' ' '\n' | fzf))
+    local get=($(echo $array | tr ' ' '\n' | fzf))
   elif [[ $count == "1" ]]; then
-      local get=($(echo $array | tr ' ' '\n'))
+    local get=($(echo $array | tr ' ' '\n'))
   else
-      echo "no VMs or VMSS found."
-      return 0
+    echo "no VMs or VMSS found."
+    return 0
   fi
 
   if [[ " ${check_vm[@]} " =~ " ${get} " ]]; then
@@ -68,7 +77,20 @@ azure-state () {
 
   local COUNT=0
   for rgp in $(az vmss list | jq -r '.[].resourceGroup'); do \
-      az vmss get-instance-view -g $rgp --name $(az vmss list |  jq -r ".[$COUNT].name") --instance-id "*" | jq ".[] | {name: .computerName, state: .statuses[1].displayStatus}"; \
-      COUNT=$COUNT+1; \
+    az vmss get-instance-view -g $rgp --name $(az vmss list |  jq -r ".[$COUNT].name") --instance-id "*" | jq ".[] | {name: .computerName, state: .statuses[1].displayStatus}"; \
+    COUNT=$COUNT+1; \
+  done
+}
+
+azure-location () {
+  az account list-locations -o table
+}
+
+azure-kvreload () {
+  local GET=($(az keyvault secret list --vault-name kv-sharedservices-${1}-${2} | jq -r ".[].id" | cut -d/ -f5 | grep ssh))
+  for val in ${GET[@]}; do
+    VALUE=$(az keyvault secret show --id https://kv-sharedservices-${1}-${2}.vault.azure.net/secrets/$val | jq -r ".value")
+    security add-generic-password -a $val -s iTerm2 -w $VALUE -U
+    echo "${val} has been added"
   done
 }
