@@ -47,24 +47,7 @@ This guide assumes your working directory is your cloned git repo.
 8. brew stuff
 
     ```
-    brew install ansible \
-    jq \
-    telnet \
-    awscli \
-    kube-aws \
-    openssl \
-    terraform \
-    azure-cli \
-    packer \
-    terragrunt \
-    tree \
-    fzf \    
-    watch \
-    wget \
-    git \
-    zsh \
-    nmap \
-    zsh-completions
+    brew install ansible jq telnet awscli kube-aws openssl terraform azure-cli packer terragrunt tree fzf watch wget git zsh nmap zsh-completions
     ```
  
     ```
